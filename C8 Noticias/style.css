@@ -1,0 +1,47 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: #e7e5df;
+  padding: 0;
+  margin: 0;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #d3d0cb;
+}
+
+.header > ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 35%;
+  align-self: center;
+  margin: 0 5% 0 5%;
+}
+
+.nInternacional > h2 {
+  color: red;
+}
+
+.nNacional > img,
+.nInternacional > img {
+  width: 650px;
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background-color: #d3d0cb;
+}
+
+.footer > ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-self: center;
+  margin: 0 5% 0 5%;
+}
