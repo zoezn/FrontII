@@ -1,81 +1,74 @@
-const nombreUsuario = document.querySelector("#nombre")
-const contraseniaUsuario = document.querySelector("#pass")
-const telefonoUsuario = document.querySelector("#tel")
-const formulario = document.querySelector("form")
-const checkbox = document.querySelectorAll("input[type=checkbox]")
-const radio = document.querySelectorAll("input[type=radio]")
-
+const nombreUsuario = document.querySelector("#nombre");
+const contraseniaUsuario = document.querySelector("#pass");
+const telefonoUsuario = document.querySelector("#tel");
+const formulario = document.querySelector("form");
+const checkbox = document.querySelectorAll("input[type=checkbox]");
+const radio = document.querySelectorAll("input[type=radio]");
 
 let usuario = {
-    nombreCompleto: "",
-    contra: "",
-    tel: "",
-    hobbiesSeleccionados: [],
-    nacionalidad: ""
-}
+  nombreCompleto: "",
+  contra: "",
+  tel: "",
+  hobbiesSeleccionados: [],
+  nacionalidad: "",
+};
 
-
-let span = document.createElement("span")
-let nameError = document.querySelector("#nameError")
-
-
+let span = document.createElement("span");
+let nameError = document.querySelector("#nameError");
 
 function normalizarDatos(nombre) {
-    let n = nombre.trim().toUpperCase()
-    if(n.length <= 50) {
-        usuario.nombreCompleto = n
-    }
-    else {
-        nombreUsuario.classList.add("error")
-        nameError.appendChild(span)
-        span.innerText = "Se excedio de la cantidad permitida de caracteres"
+  let nombreNormalizado = nombre.trim().toUpperCase();
 
-    }
+  if (nombreNormalizado.length >= 50) {
+    nombreUsuario.classList.add("error");
+    nameError.appendChild(span);
+    span.innerText = "Se excedio de la cantidad permitida de caracteres";
+  } else {
+    usuario.nombreCompleto = nombreNormalizado;
+  }
 }
 
-function validarTel(tele) {
-        usuario.tel = parseInt(tele) 
+nombreUsuario.addEventListener("blur", () =>
+  normalizarDatos(nombreUsuario.value)
+);
+
+function validarContrasenia() {
+  let strongRegex = new RegExp(
+    "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,16})"
+  );
+
+  if (strongRegex.test(contraseniaUsuario.value)) {
+    usuario.contra = contraseniaUsuario.value;
+  } else {
+    alert("Contrase;a invalida");
+  }
+  console.log(usuario);
 }
 
-nombreUsuario.addEventListener("blur", () => {
-    normalizarDatos(nombreUsuario.value)
-})
+contraseniaUsuario.addEventListener("change", () => validarContrasenia());
 
-contraseniaUsuario.addEventListener("change", () => {
-    let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,16})");
+function validarTel(telefono) {
+  usuario.tel = parseInt(telefono);
+};
 
-    if (strongRegex.test(contraseniaUsuario.value)) {
-        usuario.contrasenia = contraseniaUsuario.value
-    }
-    else {
-        alert("contra invalida")
-    }
-    console.log(usuario)
-   })
+/* function validarHobbies() {
+  if (usuario.hobbiesSeleccionados.length <= 4) {
+    checkbox.forEach((hobbie) => {
+      usuario.hobbiesSeleccionados.length <= 4 ? 
+      hobbie.checked ? usuario.hobbiesSeleccionados.push(hobbie.id) : null
+    });
+  } else {
+    null;
+  }
+} */
 
-formulario.addEventListener("submit", (e) => {
-    e.preventDefault()
+formulario.addEventListener("submit", function (e) {
+  e.preventDefault();
+  validarTel(telefonoUsuario.value);
 
-    validarTel(telefonoUsuario.value)
+  radio.forEach((nac) => {
+    nac.checked ? (usuario.nacionalidad = nac.id) : null;
+  });
 
-    checkbox.forEach( hobbie => {
-    hobbie.checked ? usuario.hobbiesSeleccionados.push(hobbie.id) : null
-    })
-
-    radio.forEach( nac => {
-    nac.checked ? usuario.nacionalidad = nac.id : null
-    })
-
-    console.log(usuario)
-})
-
-
-
-
-
-
-
-
-
-
-
+  console.log(usuario);
+});

@@ -3,33 +3,34 @@ window.addEventListener("load", function () {
   const inicio = document.querySelector("#iniciar");
   const parar = document.querySelector("#stop");
   const acelerar = document.querySelector("#acelerar");
+  const pausa = document.querySelector("#pausa");
 
-  let n = 0;
+  let contador = 0;
 
-  let intervalo = function () {
-    setInterval(() => {
-      valor.innerText = n++;
-    }, 1000);
-  };
-
-  let intervaloRapido = function () {
-    setInterval(() => {
-      valor.innerText = n++;
-    }, 500);
-  };
+  function intervalo(velocidad){
+    intervalo = setInterval(() => {
+      valor.innerText = contador++;
+    }, velocidad);
+  }
 
   inicio.addEventListener("click", () => {
-    intervalo();
-  });
-
-  acelerar.addEventListener("click", () => {
-    window.clearInterval(intervalo);
-    intervaloRapido();
+    intervalo(1000);
   });
 
   parar.addEventListener("click", () => {
-    clearInterval();
-    n = 0;
-    valor.innerText = n;
+    contador = 0;
+    valor.innerText = 0;
+    clearInterval(intervalo);
   });
+
+  acelerar.addEventListener("click", () => {
+    intervalo(500);
+  });
+
+  pausa.addEventListener("click", () => {
+    clearInterval(intervalo);
+  });
+
 });
+
+
