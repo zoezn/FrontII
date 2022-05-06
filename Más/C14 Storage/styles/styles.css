@@ -90,5 +90,8 @@ small {
 }
 
 .hidden {
-  display: none !important;
+  display: none;
+}
+.visible {
+  display: contents;
 }

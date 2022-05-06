@@ -25,41 +25,69 @@ const baseDeDatos = {
       email: "julianne.oconner@kory.org",
       password: "MysuperPassword345",
     },
+    {
+      id: 5,
+      name: "Zoe",
+      email: "asd",
+      password: "123",
+    },
   ],
 };
 
-// ACTIVIDAD
 
-// Paso a paso:
+const email = document.querySelector("#email-input");
+const contrasenia = document.querySelector("#password-input");
+const botonIniciarSesion = document.querySelector(".login-btn");
+const iniciandoSesion = document.querySelector("div#loader");
 
-// 1) Al momento de que la persona inicia sesión, si las validaciones que ya tenemos implementadas
-// han sido exitosas, deberemos almacenar la información del usuario en el LocalStorage.
+function iniciarSesion() {
+  const usuarios = baseDeDatos.usuarios;
+  for (let i = 0; i < usuarios.length; i++) {
+    if (
+      usuarios[i].email == email.value &&
+      usuarios[i].password == contrasenia.value
+    ) {
+      localStorage.setItem("email", email.value);
+      localStorage.setItem("id", usuarios[i].id);
+      localStorage.setItem("name", usuarios[i].name);
+      iniciandoSesion.classList.toggle("hidden");
+      ocultarInicioSesion();
+      mensajeBienvenida();
+      return console.log("Iniciaste sesion");
+    } else {
+      null;
+    }
+  }
+}
 
-// 2) Al mensaje de bienvenida que ya teníamos implementado, deberemos agregarle el nombre de la
-// persona y un botón de "Cerrar Sesión".
+function ocultarInicioSesion() {
+  const form = document.querySelector("form");
+  const h1 = document.querySelector("h1");
+  form.classList.add("hidden");
+  h1.classList.add("hidden");
+}
 
-// 3) Una vez iniciada la sesión, la misma se deberá mantener en ese estado para el caso de que la persona
-// recargue la página. Para ello, deberás validar si existe información del usuario al momento en
-// que se produce la carga de la página, y en base a dicha condción decidir que elementos mostrar.
+function mensajeBienvenida() {
+  const main = document.querySelector("main");
+  const usuarioNombre = localStorage.getItem("name");
+  main.innerHTML += `
+  <h1>Bienvenido al sitio ${usuarioNombre}</h1>
+  <button class="logout-btn" type="button">Cerrar sesión</button>
+  `;
+  const botonCerrarSesion = document.querySelector(".logout-btn");
+  botonCerrarSesion.addEventListener("click", () => {
+    localStorage.clear();
+    location.reload();
+  });
+}
 
-// 3) Para el caso de que la persona haga click en el botón "Cerrar Sesión", se deberá eliminar
-// la información del usuario, mostrar un mensaje indicando que se ha cerrado la sesión, y recargar
-// la página para mostrar nuevamente el formulario de login.
-
-/* 
-TIPS:
-  - Para lograr los objetivos de este ejercicio, deberás valerte de algunos eventos y métodos que vimos en
-    las clases anteriores. Te invitamos a que revises los recursos en caso de que tengas dudas, ya que allí
-    encontrarás todas las respuestas que necesitas para completar la actividad.
-
-  - Recuerda que puedes seleccionar y manipular los elementos del archivo index.html, usando los
-    recursos que Javascript te ofrece para ello. Además, en el archivo styles.css tiene algunas clases y 
-    estilos predefinidos para ayudarte a completar la actividad.
-
-  - Al momento de guardar información del usuario en el navegador, recuerda que debemos almacenar solo la 
-    información necesaria, y EN NINGUN CASO DEBEMOS GUARDAR LA CONTRASEÑA. Por ello, deberás seleccionar y
-    separar la información que tienes que almacenar, a partir del objeto que contiene la información del 
-    usuario.
-
-   ¡Manos a la obra!
- */
+window.addEventListener("load", function () {
+  if (localStorage.getItem("email") == null) {
+    botonIniciarSesion.addEventListener("click", () => {
+      iniciarSesion();
+    });
+  } else {
+    ocultarInicioSesion();
+    mensajeBienvenida();
+  }
+});
