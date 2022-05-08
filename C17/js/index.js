@@ -1,32 +1,32 @@
 // Aquí realizamos un la consulta de la promesa, esperando su respuesta asíncrona
-fetch('https://randomuser.me/api/')
-    .then(response => {
-        return response.json()
+
+function consultarApi() {
+  fetch("https://randomuser.me/api/")
+    .then((response) => {
+      return response.json();
     })
-    .then(data => {
-        console.log(data.results);
-        renderizarDatosUsuario(data);
+    .then((data) => {
+      //manipulamos la respuesta
+      let datos = data.results[0];
+      renderizarDatosUsuario(datos);
+      console.log(data.results);
     });
-
-function renderizarDatosUsuario(datos) {
-    /* -------------------------------- CONSIGNA 1 -------------------------------- */
-    // Aquí deben desarrollar una función que muestre en pantalla:
-    // la foto, el nombre completo del usuario y su email.
-    // Esto debe estar basado en la info que nos llega desde la API e insertarse en el HTML.
-    const tarjeta = document.querySelector(".tarjeta");
-    datos.results.map(person => {
-        tarjeta. innerHTML = `
-        <div class="tarjeta">           
-            <img src=${person.picture.medium} alt="">
-            <h3>${person.name.first}</h3>
-            <p>${person.email}</p>
-        </div>
-        `
-    })
-    
-
-    
 }
+
+/* -------------------------------- CONSIGNA 1 -------------------------------- */
+  // Aquí deben desarrollar una función que muestre en pantalla:
+  // la foto, el nombre completo del usuario y su email.
+  // Esto debe estar basado en la info que nos llega desde la API e insertarse en el HTML.
+
+function renderizarDatosUsuario(data) {
+  const tarjeta = document.querySelector(".tarjeta");
+  tarjeta.innerHTML = `
+    <img src="${data.picture.large}">
+    <p>${data.name.first} ${data.name.last}</p>
+    <p>${data.email}</p>
+    `;
+}
+
 
 
 /* --------------------------- CONSIGNA 2 (extra) --------------------------- */
@@ -35,4 +35,8 @@ function renderizarDatosUsuario(datos) {
 // Es criterio del equipo QUÉ bloque del código debe contenerse dentro de una función para poder ser ejecutada cada vez que se escuche un click.
 
 const boton = document.querySelector("#random");
-boton.addEventListener('click', peticion);
+
+boton.addEventListener("click", ()=>{
+    consultarApi();
+});
+

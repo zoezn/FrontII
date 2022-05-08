@@ -4,19 +4,14 @@ const btnConsultar = document.querySelector('button');
 
 btnConsultar.addEventListener('click', function () {
 
-    // mostramos la nueva UI
     cartelBanco.classList.remove('oculto');
 
-    /* -------------------------------------------------------------------------- */
-    /*                     simulamos un servidor respondiendo                     */
-    /* -------------------------------------------------------------------------- */
     const promesaBanco = new Promise((resolve, reject) => {
 
-        // simulamos info en una base de datos
         const cuenta = {
             nombre: "Michael Scott",
-            estadoActivo: false,
-            fondos: 1500
+            estadoActivo: true,
+            fondos: 10
         };
 
         setTimeout(function () {
@@ -42,10 +37,6 @@ btnConsultar.addEventListener('click', function () {
 
     });
 
-    /* -------------------------------------------------------------------------- */
-    /*                 trabajamos con el resultado de una promesa                 */
-    /* -------------------------------------------------------------------------- */
-
     promesaBanco.then(respuesta => {
         console.log("Respuesta resuelta:");
         console.log(respuesta);
@@ -64,3 +55,4 @@ btnConsultar.addEventListener('click', function () {
 // Crear una funcion que reciba como parametro un mesaje de error,
 //  la funcion debe presentar en pantalla el contenido del mensaje maquetado en el html
 // Finalmente despues de 5 segundos la funcion debe recargar la página.
+
