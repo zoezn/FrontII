@@ -9,8 +9,6 @@ function normalizarTexto(texto) {
 
 /* ---------------------------------- email --------------------------------- */
 function validarEmail(email) {
-    let regex = new RegExp("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$");
-    return regex.test(email.value);
     
 }
 

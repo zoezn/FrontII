@@ -162,6 +162,12 @@ main h2 {
     padding: .1rem .5rem;
 }
 
+/* ------ Arreglado en el .container ------ */
+/* .tareas-terminadas {
+    margin-bottom: 5%;
+} */
+
+
 .tareas-terminadas .tarea {
     background-color: var(--app-grey);
     margin-bottom: .7rem;
