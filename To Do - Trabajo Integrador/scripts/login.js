@@ -1,4 +1,11 @@
 window.addEventListener("load", function () {
+  const jwt = localStorage.getItem("jwt");
+  if (jwt) {
+    location.replace("./mis-tareas.html");
+  }
+
+
+
   /* ---------------------- obtenemos variables globales ---------------------- */
   const form = document.querySelector("form");
   const email = document.querySelector("#email");

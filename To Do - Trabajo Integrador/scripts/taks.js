@@ -20,7 +20,7 @@ window.addEventListener("load", function () {
   const tareasTerminadasContenedor =
     document.querySelector(".tareas-terminadas");
   const cantFinalizadas = document.querySelector("#cantidad-finalizadas");
-  
+  let botonesCambiarEstado = [];
 
 
 
@@ -114,6 +114,8 @@ window.addEventListener("load", function () {
       .catch((error) => {
         console.log(error);
       });
+      botonesCambiarEstado = document.querySelectorAll(".change");
+      console.log(botonesCambiarEstado)
   });
 
   /* -------------------------------------------------------------------------- */
@@ -152,6 +154,7 @@ window.addEventListener("load", function () {
       `;
     }
     
+    
   }
 
 
@@ -163,7 +166,8 @@ window.addEventListener("load", function () {
       }
       renderizar(tarea);
     });
-    
+    botonesCambiarEstado = document.querySelectorAll(".change");
+    console.log(botonesCambiarEstado);
     cantFinalizadas.innerHTML = contador;
   }
 
@@ -171,8 +175,16 @@ window.addEventListener("load", function () {
   /*                  FUNCIÓN 6 - Cambiar estado de tarea [PUT]                 */
   /* -------------------------------------------------------------------------- */
   function botonesCambioEstado() {
-    let botonesCambiarEstado = document.querySelectorAll(".change");
-    console.log(botonesCambiarEstado)
+    
+    
+    
+
+ /*    for (let i = 0; i < botones.length; i++) {
+      const element = array[i];
+      
+    }
+ */
+
 
 
    /*  botonesCambiarEstado.forEach((boton) => {
